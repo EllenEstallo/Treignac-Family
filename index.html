@@ -35,6 +35,54 @@
 				font-size: 2.5rem;
 				margin-bottom: 1rem;
 			}
+
+			/* Intro block */
+			.artivist-intro {
+				margin: 0 0 1.5rem 0;
+				border: 1px solid var(--stroke);
+				border-radius: 16px;
+				background: radial-gradient(
+						1200px 400px at 10% -20%,
+						rgba(72, 112, 255, 0.08),
+						transparent 40%
+					),
+					radial-gradient(
+						900px 360px at 110% 120%,
+						rgba(0, 219, 222, 0.08),
+						transparent 45%
+					),
+					var(--card);
+				box-shadow: var(--shadow);
+			}
+			.artivist-intro__wrap {
+				padding: 1.25rem 1.25rem 1rem;
+			}
+			.artivist-intro__lede {
+				font-size: 1.05rem;
+				line-height: 1.75;
+				margin: 0 0 1rem 0;
+			}
+			.artivist-intro__heading {
+				font-size: 1.1rem;
+				line-height: 1.35;
+				margin: 0;
+				border-top: 1px solid rgba(255, 255, 255, 0.12);
+				padding-top: 0.9rem;
+				letter-spacing: 0.02em;
+				font-weight: 700;
+			}
+			@media (min-width: 768px) {
+				.artivist-intro__wrap {
+					padding: 1.5rem 1.5rem 1.1rem;
+				}
+				.artivist-intro__lede {
+					font-size: 1.12rem;
+				}
+				.artivist-intro__heading {
+					font-size: 1.25rem;
+				}
+			}
+
 			.grid {
 				display: grid;
 				gap: 1rem;
@@ -196,11 +244,28 @@
 	<body>
 		<div class="wrap">
 			<h1>T.E.A.C.H. Artivist Retreat 2025 Participants</h1>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-				veniam. 3–6 September 2025 · Treignac, France.
-			</p>
+
+			<!-- Intro section before participant cards -->
+			<section class="artivist-intro" aria-labelledby="artivist-intro-title">
+				<div class="artivist-intro__wrap">
+					<p class="artivist-intro__lede">
+						<strong
+							>For four days, visionary artists and fearless artivists</strong
+						>
+						converged in Treignac, France (3–6 September 2025) for
+						<strong>TEACH’s Artivist Retreat</strong>, hosted by
+						<strong>Pat Cruz</strong> and <strong>Sangeeta Isvaren</strong> in
+						partnership with <strong>MAVi – Moulin des Arts Vivants</strong>.
+						Together they reimagined what it means to create, to resist, and to
+						inspire—transforming an <em>anti-conference</em> into a living work
+						of art, community, and change.
+					</p>
+
+					<h2 id="artivist-intro-title" class="artivist-intro__heading">
+						Meet the artists who made this retreat unforgettable:
+					</h2>
+				</div>
+			</section>
 
 			<div class="grid" id="grid">
 				<!-- Updated participants -->
@@ -440,7 +505,6 @@
 
 			// Sort cards A→Z by name
 			document.addEventListener("DOMContentLoaded", () => {
-				// Sort A→Z
 				const cards = Array.from(grid.children);
 				cards.sort((a, b) =>
 					a.dataset.name.localeCompare(b.dataset.name, undefined, {
