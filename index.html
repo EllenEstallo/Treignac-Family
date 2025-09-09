@@ -1,11 +1,522 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Artivist Retreat 2025 Directory</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Artivist Retreat 2025 — Participants</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--bg: #0b0e14;
+				--text: #eef2f7;
+				--muted: #9fb1c7;
+				--stroke: #233047;
+				--card: #121725;
+				--chip: #172036;
+				--shadow: 0 14px 36px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.25);
+			}
+			body {
+				font-family: Inter, sans-serif;
+				margin: 0;
+				background: var(--bg);
+				color: var(--text);
+			}
+			.wrap {
+				max-width: 1200px;
+				margin: auto;
+				padding: 2rem 1rem;
+			}
+			h1 {
+				font-size: 2.5rem;
+				margin-bottom: 1rem;
+			}
+			.grid {
+				display: grid;
+				gap: 1rem;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				margin-top: 2rem;
+			}
+			.card {
+				background: var(--card);
+				border: 1px solid var(--stroke);
+				border-radius: 16px;
+				overflow: hidden;
+				display: flex;
+				flex-direction: column;
+				min-height: 100%;
+				box-shadow: var(--shadow);
+				cursor: pointer;
+				transition: transform 0.15s ease, box-shadow 0.15s ease;
+			}
+			.card:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45),
+					0 2px 10px rgba(0, 0, 0, 0.25);
+			}
+			.card:focus-visible {
+				outline: 2px solid #6ec3ff;
+				outline-offset: 2px;
+			}
+			.media {
+				position: relative;
+			}
+			.media img {
+				width: 100%;
+				height: 280px;
+				object-fit: cover;
+				display: block;
+			}
+			.content {
+				padding: 1rem;
+				display: flex;
+				flex-direction: column;
+				gap: 0.4rem;
+			}
+			.name {
+				font-weight: 700;
+				font-size: 1.15rem;
+			}
+			.meta {
+				font-size: 0.9rem;
+				color: var(--muted);
+			}
+			.bio {
+				font-size: 0.95rem;
+				color: #d9e6f3;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+			.modal-body .bio {
+				display: block;
+				-webkit-line-clamp: unset;
+				-webkit-box-orient: unset;
+				overflow: visible;
+			}
+			.actions {
+				display: flex;
+				gap: 0.6rem;
+				padding: 0 1rem 1rem;
+			}
+			.btn {
+				flex: 1;
+				padding: 0.7rem 0.9rem;
+				border-radius: 12px;
+				border: 1px solid var(--stroke);
+				background: #10192b;
+				color: #e6f0ff;
+				cursor: pointer;
+				text-align: center;
+			}
+			.btn:hover {
+				border-color: #2c446c;
+			}
+			.cta-btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				font-weight: 600;
+				text-decoration: none;
+				color: #cfe4ff;
+				padding: 0.55rem 0.8rem;
+				border: 1px solid var(--stroke);
+				border-radius: 10px;
+				background: #0e1729;
+				width: max-content;
+				margin-top: 0.25rem;
+			}
+			.cta-btn:hover {
+				border-color: #2c446c;
+			}
+
+			/* Modal */
+			dialog {
+				border: none;
+				border-radius: 18px;
+				padding: 0;
+				width: min(760px, 92vw);
+				background: #10182a;
+				color: var(--text);
+				box-shadow: var(--shadow);
+			}
+			dialog::backdrop {
+				background: rgba(1, 5, 12, 0.6);
+			}
+			.modal-head {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 18px 18px 0;
+			}
+			.modal-body {
+				padding: 4px 18px 18px;
+			}
+			.close {
+				background: none;
+				border: none;
+				color: var(--muted);
+				font-size: 22px;
+				cursor: pointer;
+			}
+			.modal-grid {
+				display: grid;
+				gap: 16px;
+				grid-template-columns: 1fr;
+			}
+			@media (min-width: 720px) {
+				.modal-grid {
+					grid-template-columns: 320px 1fr;
+				}
+			}
+			.modal-grid img {
+				width: 100%;
+				border-radius: 14px;
+				border: 1px solid var(--stroke);
+			}
+			.kvs {
+				display: grid;
+				gap: 8px;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+			.kv {
+				background: #0d1424;
+				border: 1px solid #1e2b42;
+				border-radius: 12px;
+				padding: 10px 12px;
+				font-size: 14px;
+			}
+		</style>
 	</head>
 	<body>
-		Artivist Retreat 2025 Directory Tiny Change
+		<div class="wrap">
+			<h1>T.E.A.C.H. Artivist Retreat 2025 Participants</h1>
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+				veniam. 3–6 September 2025 · Treignac, France.
+			</p>
+
+			<div class="grid" id="grid">
+				<!-- Updated participants -->
+
+				<div
+					class="card"
+					data-name="Carolyn"
+					data-role="Artist"
+					data-disciplines="Gardening"
+					data-country="United States"
+				>
+					<div class="media"><img src="Carolyn.jpeg" alt="Carolyn" /></div>
+					<div class="content">
+						<div class="name">Carolyn</div>
+						<div class="meta">Artist · Gardening · United States</div>
+						<p class="bio">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+							enim ad minim veniam.
+						</p>
+					</div>
+				</div>
+
+				<div
+					class="card"
+					data-name="Genna"
+					data-role="Artist"
+					data-disciplines="Visual Arts"
+					data-country="Czechoslovakia"
+				>
+					<div class="media"><img src="Genna.jpeg" alt="Genna" /></div>
+					<div class="content">
+						<div class="name">Genna</div>
+						<div class="meta">Artist · Visual Arts · Czechoslovakia</div>
+						<p class="bio">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+							enim ad minim veniam.
+						</p>
+					</div>
+				</div>
+
+				<div
+					class="card"
+					data-name="Julie"
+					data-role="Artist"
+					data-disciplines="Literary Arts"
+					data-country="United States"
+				>
+					<div class="media"><img src="Julie.jpeg" alt="Julie" /></div>
+					<div class="content">
+						<div class="name">Julie</div>
+						<div class="meta">Artist · Literary Arts · United States</div>
+						<p class="bio">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+							enim ad minim veniam.
+						</p>
+					</div>
+				</div>
+
+				<div
+					class="card"
+					data-name="Maria R."
+					data-role="Artist"
+					data-disciplines="Theatre"
+					data-country="Portugal"
+				>
+					<div class="media"><img src="Maria R..jpeg" alt="Maria R." /></div>
+					<div class="content">
+						<div class="name">Maria R.</div>
+						<div class="meta">Artist · Theatre · Portugal</div>
+						<p class="bio">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+							enim ad minim veniam.
+						</p>
+					</div>
+				</div>
+
+				<div
+					class="card"
+					data-name="Maria W."
+					data-role="Artist"
+					data-disciplines="Jewelry Arts"
+					data-country="United States"
+				>
+					<div class="media"><img src="Maria W.jpeg" alt="Maria W." /></div>
+					<div class="content">
+						<div class="name">Maria W.</div>
+						<div class="meta">Artist · Jewelry Arts · United States</div>
+						<p class="bio">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+							enim ad minim veniam.
+						</p>
+					</div>
+				</div>
+
+				<div
+					class="card"
+					data-name="Naomi"
+					data-role="Artist"
+					data-disciplines="Visual Arts"
+					data-country="United States"
+				>
+					<div class="media"><img src="Naomi.jpeg" alt="Naomi" /></div>
+					<div class="content">
+						<div class="name">Naomi</div>
+						<div class="meta">Artist · Visual Arts · United States</div>
+						<p class="bio">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+							enim ad minim veniam.
+						</p>
+					</div>
+				</div>
+
+				<div
+					class="card"
+					data-name="Patricia"
+					data-role="Host"
+					data-disciplines="Multidisciplinary"
+					data-country="Philippines / United States / France"
+				>
+					<div class="media"><img src="Patricia.jpeg" alt="Patricia" /></div>
+					<div class="content">
+						<div class="name">Patricia</div>
+						<div class="meta">
+							Host · Multidisciplinary · Philippines / United States / France
+						</div>
+						<p class="bio">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+							enim ad minim veniam.
+						</p>
+					</div>
+				</div>
+
+				<div
+					class="card"
+					data-name="Rowen"
+					data-role="Artist"
+					data-disciplines="Youth Arts"
+					data-country="United States"
+				>
+					<div class="media"><img src="Rowen.jpeg" alt="Rowen" /></div>
+					<div class="content">
+						<div class="name">Rowen</div>
+						<div class="meta">Artist · Youth Arts · United States</div>
+						<p class="bio">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+							enim ad minim veniam.
+						</p>
+					</div>
+				</div>
+
+				<div
+					class="card"
+					data-name="Shimon"
+					data-role="Artist"
+					data-disciplines="Dance"
+					data-country="Israel / France"
+				>
+					<div class="media"><img src="Shimon.jpeg" alt="Shimon" /></div>
+					<div class="content">
+						<div class="name">Shimon</div>
+						<div class="meta">Artist · Dance · Israel / France</div>
+						<p class="bio">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+							enim ad minim veniam.
+						</p>
+					</div>
+				</div>
+
+				<div
+					class="card"
+					data-name="Stefanie"
+					data-role="Artist"
+					data-disciplines="Visual Arts"
+					data-country="United States"
+				>
+					<div class="media"><img src="Stefanie.jpg" alt="Stefanie" /></div>
+					<div class="content">
+						<div class="name">Stefanie</div>
+						<div class="meta">Artist · Visual Arts · United States</div>
+						<p class="bio">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+							enim ad minim veniam.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<dialog id="modal" aria-labelledby="modalTitle">
+			<div class="modal-head">
+				<h3 id="modalTitle" style="margin: 0; font-size: 1.1rem">Profile</h3>
+				<button
+					class="close"
+					aria-label="Close"
+					onclick="document.getElementById('modal').close()"
+				>
+					✕
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="modal-grid">
+					<img id="modalImg" src="" alt="" />
+					<div>
+						<h4 id="modalName" style="margin: 0.2rem 0 0">Name</h4>
+						<p id="modalMeta" class="meta" style="margin: 2px 0 10px"></p>
+						<p id="modalBio" class="bio"></p>
+						<div class="kvs" style="margin-top: 14px">
+							<div class="kv">
+								<strong>Country:</strong> <span id="kvCountry"></span>
+							</div>
+							<div class="kv">
+								<strong>Role:</strong> <span id="kvRole"></span>
+							</div>
+							<div class="kv">
+								<strong>Disciplines:</strong> <span id="kvDisc"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</dialog>
+
+		<script>
+			const grid = document.getElementById("grid");
+			const modal = document.getElementById("modal");
+
+			// Sort cards A→Z by name
+			document.addEventListener("DOMContentLoaded", () => {
+				// Sort A→Z
+				const cards = Array.from(grid.children);
+				cards.sort((a, b) =>
+					a.dataset.name.localeCompare(b.dataset.name, undefined, {
+						sensitivity: "base",
+					})
+				);
+				grid.innerHTML = "";
+				cards.forEach((c) => {
+					// Make the whole card keyboard- and screen-reader friendly
+					c.setAttribute("tabindex", "0");
+					c.setAttribute("role", "button");
+					c.setAttribute("aria-label", `Open ${c.dataset.name} details`);
+
+					// Ensure a visible CTA exists
+					const content = c.querySelector(".content");
+					if (content && !content.querySelector(".cta-btn")) {
+						const b = document.createElement("button");
+						b.type = "button";
+						b.className = "cta-btn";
+						b.textContent = "Learn more";
+						b.setAttribute("data-open", "");
+						b.addEventListener("click", (e) => {
+							e.preventDefault();
+							openModal(c);
+						});
+						content.appendChild(b);
+					}
+
+					grid.appendChild(c);
+				});
+			});
+
+			// Modal wiring
+			grid.addEventListener("click", (e) => {
+				const clickable = e.target.closest("[data-open], .card");
+				if (!clickable) return;
+				const card = clickable.closest(".card");
+				openModal(card);
+			});
+
+			// Keyboard: open with Enter/Space when card focused
+			grid.addEventListener("keydown", (e) => {
+				const card = e.target.closest(".card");
+				if (!card) return;
+				if (e.key === "Enter" || e.key === " ") {
+					e.preventDefault();
+					openModal(card);
+				}
+			});
+
+			function openModal(card) {
+				const name = card.dataset.name;
+				const role = card.dataset.role;
+				const disc = card.dataset.disciplines;
+				const country = card.dataset.country || "—";
+				const img = card.querySelector("img");
+				const bio = card.querySelector(".bio").textContent;
+				const metaText = card.querySelector(".meta").textContent;
+
+				document.getElementById("modalTitle").textContent = name;
+				document.getElementById("modalName").textContent = name;
+				document.getElementById("modalMeta").textContent = metaText;
+				const mImg = document.getElementById("modalImg");
+				mImg.src = img.src;
+				mImg.alt = `Portrait of ${name}`;
+				document.getElementById("modalBio").textContent = bio;
+				document.getElementById("kvCountry").textContent = country;
+				document.getElementById("kvRole").textContent = role;
+				document.getElementById("kvDisc").textContent = disc;
+
+				if (typeof modal.showModal === "function") {
+					modal.showModal();
+				} else {
+					alert(name);
+				}
+			}
+		</script>
 	</body>
 </html>
