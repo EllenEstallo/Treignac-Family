@@ -4,12 +4,6 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Artivist Retreat 2025 — Participants</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-			rel="stylesheet"
-		/>
 		<style>
 			:root {
 				--bg: #0b0e14;
@@ -17,11 +11,10 @@
 				--muted: #9fb1c7;
 				--stroke: #233047;
 				--card: #121725;
-				--chip: #172036;
 				--shadow: 0 14px 36px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.25);
 			}
 			body {
-				font-family: Inter, sans-serif;
+				font-family: Arial, Helvetica, sans-serif;
 				margin: 0;
 				background: var(--bg);
 				color: var(--text);
@@ -34,47 +27,35 @@
 			h1 {
 				font-size: 2.5rem;
 				margin-bottom: 1rem;
+				text-align: center; /* Center the title */
 			}
 
-			/* Intro block */
+			/* Intro — flat, no box */
 			.artivist-intro {
 				margin: 0 0 1.5rem 0;
-				border: 1px solid var(--stroke);
-				border-radius: 16px;
-				background: radial-gradient(
-						1200px 400px at 10% -20%,
-						rgba(72, 112, 255, 0.08),
-						transparent 40%
-					),
-					radial-gradient(
-						900px 360px at 110% 120%,
-						rgba(0, 219, 222, 0.08),
-						transparent 45%
-					),
-					var(--card);
-				box-shadow: var(--shadow);
+				border: none;
+				border-radius: 0;
+				background: none;
+				box-shadow: none;
 			}
 			.artivist-intro__wrap {
-				padding: 1.25rem 1.25rem 1rem;
+				padding: 0;
 			}
 			.artivist-intro__lede {
 				font-size: 1.05rem;
 				line-height: 1.75;
-				margin: 0 0 1rem 0;
+				margin: 0; /* remove extra margins here */
 			}
 			.artivist-intro__heading {
 				font-size: 1.1rem;
-				line-height: 1.35;
-				margin: 0;
-				border-top: 1px solid rgba(255, 255, 255, 0.12);
-				padding-top: 0.9rem;
+				line-height: 1.4;
+				margin: 1.75rem 0 0; /* bigger vertical space from the paragraph above */
+				border-top: none;
+				padding-top: 0;
 				letter-spacing: 0.02em;
 				font-weight: 700;
 			}
 			@media (min-width: 768px) {
-				.artivist-intro__wrap {
-					padding: 1.5rem 1.5rem 1.1rem;
-				}
 				.artivist-intro__lede {
 					font-size: 1.12rem;
 				}
@@ -98,28 +79,51 @@
 				flex-direction: column;
 				min-height: 100%;
 				box-shadow: var(--shadow);
+			}
+			/* Hover/press styles only apply to interactive cards (we add role=button only if they have a bio) */
+			.card[role="button"] {
 				cursor: pointer;
 				transition: transform 0.15s ease, box-shadow 0.15s ease;
 			}
-			.card:hover {
+			.card[role="button"]:hover {
 				transform: translateY(-2px);
 				box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45),
 					0 2px 10px rgba(0, 0, 0, 0.25);
 			}
-			.card:focus-visible {
+			.card[role="button"]:focus-visible {
 				outline: 2px solid #6ec3ff;
-				outline-offset: 2px;
+				outline-offset: 3px;
+				box-shadow: 0 0 0 4px rgba(110, 195, 255, 0.15), var(--shadow);
 			}
+
 			.media {
 				position: relative;
 			}
 			.media img {
-				width: 80%;
-				height: 250px;
+				width: 100%;
+				height: auto;
+				aspect-ratio: 4 / 3;
 				object-fit: cover;
 				object-position: top;
 				display: block;
 			}
+
+			/* Taller, zoomed-in portraits */
+			.media {
+				position: relative;
+				overflow: hidden; /* ensure the zoomed image is cleanly cropped */
+			}
+			.media img {
+				width: 100%;
+				height: auto;
+				aspect-ratio: 4 / 5; /* taller frame */
+				object-fit: cover; /* fill and crop */
+				object-position: var(--ox, 50%) var(--oy, 35%); /* focal point */
+				transform: scale(var(--zoom, 1.15)); /* zoom IN */
+				transform-origin: center;
+				display: block;
+			}
+
 			.content {
 				padding: 1rem;
 				display: flex;
@@ -148,24 +152,6 @@
 				-webkit-box-orient: unset;
 				overflow: visible;
 			}
-			.actions {
-				display: flex;
-				gap: 0.6rem;
-				padding: 0 1rem 1rem;
-			}
-			.btn {
-				flex: 1;
-				padding: 0.7rem 0.9rem;
-				border-radius: 12px;
-				border: 1px solid var(--stroke);
-				background: #10192b;
-				color: #e6f0ff;
-				cursor: pointer;
-				text-align: center;
-			}
-			.btn:hover {
-				border-color: #2c446c;
-			}
 			.cta-btn {
 				display: inline-flex;
 				align-items: center;
@@ -182,6 +168,11 @@
 			}
 			.cta-btn:hover {
 				border-color: #2c446c;
+			}
+			.cta-btn:focus-visible,
+			.close:focus-visible {
+				outline: 2px solid #6ec3ff;
+				outline-offset: 3px;
 			}
 
 			/* Modal */
@@ -240,13 +231,23 @@
 				padding: 10px 12px;
 				font-size: 14px;
 			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.card[role="button"] {
+					transition: none;
+				}
+				.card[role="button"]:hover {
+					transform: none;
+					box-shadow: var(--shadow);
+				}
+			}
 		</style>
 	</head>
 	<body>
 		<div class="wrap">
 			<h1>Artivist Retreat Participants</h1>
 
-			<!-- Intro section before participant cards -->
+			<!-- Flat intro section -->
 			<section class="artivist-intro" aria-labelledby="artivist-intro-title">
 				<div class="artivist-intro__wrap">
 					<p class="artivist-intro__lede">
@@ -267,7 +268,7 @@
 			</section>
 
 			<div class="grid" id="grid">
-				<!-- Updated participants -->
+				<!-- Only Gena and Maria Rio have real bios; others omit the .bio entirely -->
 
 				<div
 					class="card"
@@ -276,33 +277,53 @@
 					data-disciplines="Gardening"
 					data-country="United States"
 				>
-					<div class="media"><img src="Carolyn.jpeg" alt="Carolyn" /></div>
+					<div class="media">
+						<img
+							src="Carolyn.jpg"
+							alt="Portrait of Carolyn"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
 					<div class="content">
 						<div class="name">Carolyn</div>
 						<div class="meta">Artist · Gardening · United States</div>
-						<p class="bio">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam.
-						</p>
+						<!-- no .bio -->
 					</div>
 				</div>
 
 				<div
 					class="card"
-					data-name="Genna"
+					data-name="Gena Dawn Rabinowitz"
 					data-role="Artist"
 					data-disciplines="Visual Arts"
-					data-country="Czechoslovakia"
+					data-country="Czech Republic"
 				>
-					<div class="media"><img src="Genna.jpeg" alt="Genna" /></div>
+					<div class="media">
+						<img
+							src="Gena-Dawn-Rabinowitz.jpg"
+							alt="Portrait of Gena Dawn Rabinowitz"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
 					<div class="content">
-						<div class="name">Genna</div>
-						<div class="meta">Artist · Visual Arts · Czechoslovakia</div>
+						<div class="name">Gena Dawn Rabinowitz</div>
+						<div class="meta">Artist · Visual Arts · Czech Republic</div>
 						<p class="bio">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam.
+							Gena Dawn Rabinowitz is an international visual arts educator with
+							more than two decades of experience in independent and
+							international schools around the world. Her work integrates
+							creativity, activism, and global citizenship, empowering young
+							people to use art as a force for positive change. She is the
+							founder of GAIA Kids (Global Artists in Action), a global
+							initiative amplifying children’s voices and turning creativity
+							into meaningful action. In addition to her work as an educator,
+							Gena is a mother, photographer, expat, and world traveler, and the
+							published author of the children’s art book The Rainbow’s Journey:
+							An Adventure in Asia. For more information about Gena, please
+							visit www.genadawn.com. For more information about GAIA Kids,
+							please visit www.gaiakids.net.
 						</p>
 					</div>
 				</div>
@@ -314,15 +335,18 @@
 					data-disciplines="Literary Arts"
 					data-country="United States"
 				>
-					<div class="media"><img src="Julie.jpeg" alt="Julie" /></div>
+					<div class="media">
+						<img
+							src="Julie.jpg"
+							alt="Portrait of Julie"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
 					<div class="content">
 						<div class="name">Julie</div>
 						<div class="meta">Artist · Literary Arts · United States</div>
-						<p class="bio">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam.
-						</p>
+						<!-- no .bio -->
 					</div>
 				</div>
 
@@ -333,7 +357,14 @@
 					data-disciplines="Theatre"
 					data-country="Portugal"
 				>
-					<div class="media"><img src="Maria R..jpeg" alt="Maria R." /></div>
+					<div class="media">
+						<img
+							src="Maria-Rio.jpg"
+							alt="Portrait of Maria Rio"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
 					<div class="content">
 						<div class="name">Maria Rio</div>
 						<div class="meta">Artist · Theatre · Portugal</div>
@@ -342,7 +373,7 @@
 							for children.” She is the founder of a project called Space To Be
 							that creates original performative moments to promote growth and
 							empower children to express themselves through their chosen art
-							form. By combining drama, music, movement, and mindfulness,and
+							form. By combining drama, music, movement, and mindfulness, and
 							whatever else shows up in the creative process, she wants each
 							child to work with what brings them joy and she supports them in
 							overcoming their fears along the way. She feels the world can only
@@ -360,15 +391,18 @@
 					data-disciplines="Jewelry Arts"
 					data-country="United States"
 				>
-					<div class="media"><img src="Maria W.jpeg" alt="Maria W." /></div>
+					<div class="media">
+						<img
+							src="Maria-W.jpg"
+							alt="Portrait of Maria W."
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
 					<div class="content">
 						<div class="name">Maria W.</div>
 						<div class="meta">Artist · Jewelry Arts · United States</div>
-						<p class="bio">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam.
-						</p>
+						<!-- no .bio -->
 					</div>
 				</div>
 
@@ -379,15 +413,18 @@
 					data-disciplines="Visual Arts"
 					data-country="United States"
 				>
-					<div class="media"><img src="Naomi.jpeg" alt="Naomi" /></div>
+					<div class="media">
+						<img
+							src="Naomi.jpg"
+							alt="Portrait of Naomi"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
 					<div class="content">
 						<div class="name">Naomi</div>
 						<div class="meta">Artist · Visual Arts · United States</div>
-						<p class="bio">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam.
-						</p>
+						<!-- no .bio -->
 					</div>
 				</div>
 
@@ -398,17 +435,20 @@
 					data-disciplines="Multidisciplinary"
 					data-country="Philippines / United States / France"
 				>
-					<div class="media"><img src="Patricia.jpeg" alt="Patricia" /></div>
+					<div class="media">
+						<img
+							src="Patricia.jpg"
+							alt="Portrait of Patricia"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
 					<div class="content">
 						<div class="name">Patricia</div>
 						<div class="meta">
 							Host · Multidisciplinary · Philippines / United States / France
 						</div>
-						<p class="bio">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam.
-						</p>
+						<!-- no .bio -->
 					</div>
 				</div>
 
@@ -419,15 +459,18 @@
 					data-disciplines="Youth Arts"
 					data-country="United States"
 				>
-					<div class="media"><img src="Rowen.jpeg" alt="Rowen" /></div>
+					<div class="media">
+						<img
+							src="Rowen.jpg"
+							alt="Portrait of Rowen"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
 					<div class="content">
 						<div class="name">Rowen</div>
 						<div class="meta">Artist · Youth Arts · United States</div>
-						<p class="bio">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam.
-						</p>
+						<!-- no .bio -->
 					</div>
 				</div>
 
@@ -438,15 +481,18 @@
 					data-disciplines="Dance"
 					data-country="Israel / France"
 				>
-					<div class="media"><img src="Shimon.jpeg" alt="Shimon" /></div>
+					<div class="media">
+						<img
+							src="Shimon.jpg"
+							alt="Portrait of Shimon"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
 					<div class="content">
 						<div class="name">Shimon</div>
 						<div class="meta">Artist · Dance · Israel / France</div>
-						<p class="bio">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam.
-						</p>
+						<!-- no .bio -->
 					</div>
 				</div>
 
@@ -457,15 +503,18 @@
 					data-disciplines="Visual Arts"
 					data-country="United States"
 				>
-					<div class="media"><img src="Stefanie.jpg" alt="Stefanie" /></div>
+					<div class="media">
+						<img
+							src="Stephanie.jpg"
+							alt="Portrait of Stephanie"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
 					<div class="content">
-						<div class="name">Stefanie</div>
+						<div class="name">Stephanie</div>
 						<div class="meta">Artist · Visual Arts · United States</div>
-						<p class="bio">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam.
-						</p>
+						<!-- no .bio -->
 					</div>
 				</div>
 			</div>
@@ -478,7 +527,7 @@
 				<button
 					class="close"
 					aria-label="Close"
-					onclick="document.getElementById('modal').close()"
+					onclick="event.stopPropagation(); document.getElementById('modal').close()"
 				>
 					✕
 				</button>
@@ -510,73 +559,133 @@
 			const grid = document.getElementById("grid");
 			const modal = document.getElementById("modal");
 
-			// Sort cards A→Z by name
+			// helper: does a card have a real bio?
+			function hasBio(card) {
+				const bio = card.querySelector(".bio");
+				return !!(bio && bio.textContent.trim().length > 0);
+			}
+
+			let lastTrigger = null;
+
 			document.addEventListener("DOMContentLoaded", () => {
 				const cards = Array.from(grid.children);
+				// Sort A→Z by data-name
 				cards.sort((a, b) =>
 					a.dataset.name.localeCompare(b.dataset.name, undefined, {
 						sensitivity: "base",
 					})
 				);
+
 				grid.innerHTML = "";
 				cards.forEach((c) => {
-					// Make the whole card keyboard- and screen-reader friendly
-					c.setAttribute("tabindex", "0");
-					c.setAttribute("role", "button");
-					c.setAttribute("aria-label", `Open ${c.dataset.name} details`);
+					// Make interactive only if it has a real bio
+					if (hasBio(c)) {
+						c.setAttribute("tabindex", "0");
+						c.setAttribute("role", "button");
+						c.setAttribute("aria-haspopup", "dialog");
+						c.setAttribute("aria-label", `Open ${c.dataset.name} details`);
 
-					// Ensure a visible CTA exists
-					const content = c.querySelector(".content");
-					if (content && !content.querySelector(".cta-btn")) {
-						const b = document.createElement("button");
-						b.type = "button";
-						b.className = "cta-btn";
-						b.textContent = "Learn more";
-						b.setAttribute("data-open", "");
-						b.addEventListener("click", (e) => {
-							e.preventDefault();
-							openModal(c);
-						});
-						content.appendChild(b);
+						// Add CTA if missing
+						const content = c.querySelector(".content");
+						if (content && !content.querySelector(".cta-btn")) {
+							const b = document.createElement("button");
+							b.type = "button";
+							b.className = "cta-btn";
+							b.textContent = "Learn more";
+							b.setAttribute("data-open", "");
+							b.addEventListener("click", (e) => {
+								e.preventDefault();
+								e.stopPropagation();
+								openModal(c, b);
+							});
+							content.appendChild(b);
+						}
+					} else {
+						// Ensure non-interactive
+						c.removeAttribute("tabindex");
+						c.removeAttribute("role");
+						c.removeAttribute("aria-haspopup");
+						c.removeAttribute("aria-label");
+						const btn = c.querySelector(".cta-btn");
+						if (btn) btn.remove();
+					}
+
+					// image hygiene
+					const img = c.querySelector("img");
+					if (img) {
+						img.loading = img.loading || "lazy";
+						img.decoding = img.decoding || "async";
+						if (!img.alt || !img.alt.trim())
+							img.alt = `Portrait of ${c.dataset.name}`;
 					}
 
 					grid.appendChild(c);
 				});
 			});
 
-			// Modal wiring
+			// Only open modal when clicking an interactive card or a CTA
 			grid.addEventListener("click", (e) => {
-				const clickable = e.target.closest("[data-open], .card");
-				if (!clickable) return;
-				const card = clickable.closest(".card");
-				openModal(card);
+				const card = e.target.closest(".card");
+				if (!card) return;
+				const wantsOpen = e.target.closest("[data-open]");
+				if (wantsOpen || hasBio(card)) openModal(card, e.target);
 			});
 
-			// Keyboard: open with Enter/Space when card focused
+			// Keyboard: open with Enter/Space when interactive card focused
 			grid.addEventListener("keydown", (e) => {
-				const card = e.target.closest(".card");
+				const card = e.target.closest(".card[role='button']");
 				if (!card) return;
 				if (e.key === "Enter" || e.key === " ") {
 					e.preventDefault();
-					openModal(card);
+					openModal(card, card);
 				}
 			});
 
-			function openModal(card) {
+			function getFocusable(container) {
+				return Array.from(
+					container.querySelectorAll(
+						'a[href], button, textarea, input[type="text"], input[type="search"], input[type="email"], input[type="url"], input[type="tel"], select, [tabindex]:not([tabindex="-1"])'
+					)
+				).filter(
+					(el) =>
+						!el.hasAttribute("disabled") && !el.getAttribute("aria-hidden")
+				);
+			}
+
+			function trapFocus(e) {
+				if (!modal.open || e.key !== "Tab") return;
+				const focusables = getFocusable(modal);
+				if (focusables.length === 0) return;
+				const first = focusables[0];
+				const last = focusables[focusables.length - 1];
+				if (e.shiftKey && document.activeElement === first) {
+					e.preventDefault();
+					last.focus();
+				} else if (!e.shiftKey && document.activeElement === last) {
+					e.preventDefault();
+					first.focus();
+				}
+			}
+
+			function openModal(card, triggerEl) {
+				lastTrigger = triggerEl || card;
+
 				const name = card.dataset.name;
-				const role = card.dataset.role;
-				const disc = card.dataset.disciplines;
+				const role = card.dataset.role || "—";
+				const disc = card.dataset.disciplines || "—";
 				const country = card.dataset.country || "—";
 				const img = card.querySelector("img");
-				const bio = card.querySelector(".bio").textContent;
-				const metaText = card.querySelector(".meta").textContent;
+				const bio = card.querySelector(".bio")?.textContent.trim() || "";
+				const metaText = card.querySelector(".meta")?.textContent.trim() || "";
 
 				document.getElementById("modalTitle").textContent = name;
 				document.getElementById("modalName").textContent = name;
 				document.getElementById("modalMeta").textContent = metaText;
+
 				const mImg = document.getElementById("modalImg");
-				mImg.src = img.src;
+				mImg.src = img?.src || "";
 				mImg.alt = `Portrait of ${name}`;
+
 				document.getElementById("modalBio").textContent = bio;
 				document.getElementById("kvCountry").textContent = country;
 				document.getElementById("kvRole").textContent = role;
@@ -584,10 +693,37 @@
 
 				if (typeof modal.showModal === "function") {
 					modal.showModal();
+					const focusables = getFocusable(modal);
+					(focusables[0] || modal).focus();
 				} else {
 					alert(name);
 				}
 			}
+
+			function closeModal() {
+				modal.close();
+				if (lastTrigger && typeof lastTrigger.focus === "function")
+					lastTrigger.focus();
+			}
+
+			document.addEventListener("keydown", (e) => {
+				if (e.key === "Escape" && modal.open) {
+					e.preventDefault();
+					closeModal();
+				} else if (modal.open && e.key === "Tab") {
+					trapFocus(e);
+				}
+			});
+
+			modal.addEventListener("click", (e) => {
+				const rect = modal.getBoundingClientRect();
+				const inDialog =
+					e.clientX >= rect.left &&
+					e.clientX <= rect.right &&
+					e.clientY >= rect.top &&
+					e.clientY <= rect.bottom;
+				if (!inDialog) closeModal();
+			});
 		</script>
 	</body>
 </html>
